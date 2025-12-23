@@ -1,8 +1,7 @@
 from flask import Blueprint, request, jsonify
-from app.models.member_dao import create_member
-from flask_jwt_extended import jwt_required
-from app.models.member_dao import get_all_members, update_member, delete_member
-
+from app.models.member_dao import create_member, get_all_members, update_member, delete_member
+from flask_jwt_extended import jwt_required 
+from app.utils import admin_required
 member_bp = Blueprint('member', __name__)
 
 @member_bp.route('/', methods=['POST'])
@@ -84,7 +83,7 @@ def edit_member(member_id):
     return jsonify({"message": "Member updated"}), 200
 
 @member_bp.route('/<int:member_id>', methods=['DELETE'])
-@jwt_required()
+@admin_required()
 def remove_member(member_id):
     """
     Üyeyi siler.
