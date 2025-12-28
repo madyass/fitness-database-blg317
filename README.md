@@ -48,13 +48,7 @@ Ensure you have the following installed on your system:
     GRANT ALL PRIVILEGES ON DATABASE fitness_db TO myuser;
     ```
 
-3.  **Create Tables**:
-    Run the `schema.sql` script to create the table structure.
-    ```bash
-    psql -U postgres -d fitness_db -f schema.sql
-    ```
-
-4.  **Seed the Database**:
+3.  **Seed the Database**:
     Run the `seed_data.sql` script to create tables and insert initial data.
     ```bash
     psql -U postgres -d fitness_db -f seed_data.sql
