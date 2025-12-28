@@ -1,12 +1,12 @@
 from app.db import get_db_connection
 
 def create_user(username, password, role='member'):
-    """Yeni kullanıcı oluşturur (Register)"""
+    """Creates a new user (Register)"""
     conn = get_db_connection()
     cur = conn.cursor()
     
-    # RAW SQL KULLANIMI
-    # Güvenlik için %s kullanarak parametreli sorgu atıyoruz (SQL Injection önlemi)
+    # USING RAW SQL
+    # Using parameterized queries with %s for security (SQL Injection prevention)
     query = """
     INSERT INTO users (username, password, role)
     VALUES (%s, %s, %s)
@@ -26,19 +26,19 @@ def create_user(username, password, role='member'):
         conn.close()
 
 def get_user_by_username(username):
-    """Login kontrolü için kullanıcıyı çeker"""
+    """Fetches user for login check"""
     conn = get_db_connection()
     cur = conn.cursor()
     
     query = "SELECT id, username, password, role FROM users WHERE username = %s;"
     
     cur.execute(query, (username,))
-    user = cur.fetchone() # (id, username, password, role) döner ya da None
+    user = cur.fetchone() # Returns (id, username, password, role) or None
     
     cur.close()
     conn.close()
     
     if user:
-        # Tuple'ı dictionary'e çevirip dönelim, kullanımı kolay olsun
+        # Convert Tuple to dictionary for easier usage
         return {"id": user[0], "username": user[1], "password": user[2], "role": user[3]}
     return None

@@ -26,7 +26,7 @@ def get_all_members():
     cur.close()
     conn.close()
     
-    # List of Dicts döndürelim
+    # Return List of Dicts
     members = []
     for row in rows:
         members.append({

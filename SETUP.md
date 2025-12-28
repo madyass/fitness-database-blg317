@@ -1,18 +1,14 @@
-# fitness-database-blg317
-
-A comprehensive Gym Management System API built with Flask and PostgreSQL.
-
-## Project Setup Instructions
+# Project Setup Instructions
 
 This guide provides step-by-step instructions to set up and run the Gym Management API project.
 
-### Prerequisites
+## Prerequisites
 
 Ensure you have the following installed on your system:
 - **Python 3.8+**: [Download Python](https://www.python.org/downloads/)
 - **PostgreSQL**: [Download PostgreSQL](https://www.postgresql.org/download/)
 
-### Installation
+## Installation
 
 1.  **Clone the repository** (if you haven't already):
     ```bash
@@ -32,7 +28,7 @@ Ensure you have the following installed on your system:
     pip install -r requirements.txt
     ```
 
-### Database Setup
+## Database Setup
 
 1.  **Create the Database**:
     Access your PostgreSQL terminal (psql) or use a tool like pgAdmin.
@@ -48,20 +44,20 @@ Ensure you have the following installed on your system:
     GRANT ALL PRIVILEGES ON DATABASE fitness_db TO myuser;
     ```
 
-3.  **Create Tables**:
-    Run the `schema.sql` script to create the table structure.
-    ```bash
-    psql -U postgres -d fitness_db -f schema.sql
-    ```
+    3.  **Create Tables**:
+        Run the `schema.sql` script to create the table structure.
+        ```bash
+        psql -U postgres -d fitness_db -f schema.sql
+        ```
 
-4.  **Seed the Database**:
+    4.  **Seed the Database**:
     Run the `seed_data.sql` script to create tables and insert initial data.
     ```bash
     psql -U postgres -d fitness_db -f seed_data.sql
     ```
     *Note: Replace `postgres` with your database username if different.*
 
-### Configuration
+## Configuration
 
 1.  **Configure Database Connection**:
     Open `config.py` and update the database connection details if they differ from the defaults.

@@ -8,7 +8,7 @@ member_bp = Blueprint('member', __name__)
 @jwt_required()
 def add_new_member():
     """
-    Yeni üye kaydeder.
+    Registers a new member.
     ---
     tags:
       - Members
@@ -31,7 +31,7 @@ def add_new_member():
               type: integer
     responses:
       201:
-        description: Üye oluşturuldu
+        description: Member created
     """
     data = request.get_json()
     try:
@@ -50,10 +50,13 @@ def add_new_member():
 @jwt_required()
 def list_members():
     """
-    Tüm üyeleri listeler.
+    Lists all members.
     ---
     tags:
       - Members
+    responses:
+      200:
+        description: List of members
     """
     members = get_all_members()
     return jsonify(members), 200
@@ -62,7 +65,7 @@ def list_members():
 @jwt_required()
 def edit_member(member_id):
     """
-    Üye bilgilerini günceller.
+    Updates member information.
     ---
     tags:
       - Members
@@ -77,6 +80,9 @@ def edit_member(member_id):
             properties:
                 phone: {type: string}
                 address: {type: string}
+    responses:
+      200:
+        description: Member updated
     """
     data = request.get_json()
     update_member(member_id, data.get('phone'), data.get('address'))
@@ -86,10 +92,18 @@ def edit_member(member_id):
 @admin_required()
 def remove_member(member_id):
     """
-    Üyeyi siler.
+    Deletes a member.
     ---
     tags:
       - Members
+    parameters:
+      - name: member_id
+        in: path
+        type: integer
+        required: true  
+    responses:
+      200:
+        description: Member deleted
     """
     delete_member(member_id)
     return jsonify({"message": "Member deleted"}), 200

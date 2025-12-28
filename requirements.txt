@@ -3,3 +3,4 @@ flask-jwt-extended
 flasgger
 psycopg2-binary
 python-dotenv
+flask-cors

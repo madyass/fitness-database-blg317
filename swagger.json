@@ -1,0 +1,371 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Gym Management API",
+        "description": "API Dokümantasyonu",
+        "version": "1.0.0"
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token formatı: Bearer <token>"
+        }
+    },
+    "security": [
+        {
+            "Bearer": []
+        }
+    ],
+    "paths": {
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Giriş yapar ve JWT Token döner.",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "username": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Token başarıyla üretildi"
+                    },
+                    "401": {
+                        "description": "Hatalı kullanıcı adı veya şifre"
+                    }
+                }
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Yeni kullanıcı kaydı oluşturur.",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "username": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Kullanıcı başarıyla oluşturuldu"
+                    },
+                    "400": {
+                        "description": "Hata oluştu"
+                    }
+                }
+            }
+        },
+        "/api/classes/": {
+            "get": {
+                "tags": [
+                    "Classes"
+                ],
+                "summary": "Tüm grup derslerini listeler.",
+                "responses": {
+                    "200": {
+                        "description": "Ders listesi döner"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Classes"
+                ],
+                "summary": "Yeni grup dersi planlar.",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "class_name": {
+                                    "type": "string"
+                                },
+                                "instructor_id": {
+                                    "type": "integer"
+                                },
+                                "room_id": {
+                                    "type": "integer"
+                                },
+                                "start_time": {
+                                    "type": "string",
+                                    "example": "2025-01-01 10:00:00"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Ders oluşturuldu"
+                    }
+                }
+            }
+        },
+        "/api/instructors/": {
+            "get": {
+                "tags": [
+                    "Instructors"
+                ],
+                "summary": "Tüm eğitmenleri listeler.",
+                "responses": {
+                    "200": {
+                        "description": "Eğitmen listesi döner"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Instructors"
+                ],
+                "summary": "Yeni eğitmen ekler.",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "first_name": {
+                                    "type": "string"
+                                },
+                                "last_name": {
+                                    "type": "string"
+                                },
+                                "specialization": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Eğitmen oluşturuldu"
+                    }
+                }
+            }
+        },
+        "/api/members/": {
+            "get": {
+                "tags": [
+                    "Members"
+                ],
+                "summary": "Tüm üyeleri listeler.",
+                "responses": {
+                    "200": {
+                        "description": "Üye listesi"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Members"
+                ],
+                "summary": "Yeni üye kaydeder.",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "first_name": {
+                                    "type": "string"
+                                },
+                                "last_name": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                },
+                                "plan_id": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Üye oluşturuldu"
+                    }
+                }
+            }
+        },
+        "/api/members/{member_id}": {
+            "put": {
+                "tags": [
+                    "Members"
+                ],
+                "summary": "Üye bilgilerini günceller.",
+                "parameters": [
+                    {
+                        "name": "member_id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "properties": {
+                                "phone": {
+                                    "type": "string"
+                                },
+                                "address": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Üye güncellendi"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Members"
+                ],
+                "summary": "Üyeyi siler.",
+                "parameters": [
+                    {
+                        "name": "member_id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Üye silindi"
+                    }
+                }
+            }
+        },
+        "/api/plans/": {
+            "get": {
+                "tags": [
+                    "Plans"
+                ],
+                "summary": "Tüm planları listeler.",
+                "responses": {
+                    "200": {
+                        "description": "Tüm planlar listelenir"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Plans"
+                ],
+                "summary": "Yeni üyelik planı oluşturur.",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "properties": {
+                                "plan_name": {
+                                    "type": "string"
+                                },
+                                "monthly_fee": {
+                                    "type": "number"
+                                },
+                                "duration_months": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Plan oluşturuldu"
+                    }
+                }
+            }
+        },
+        "/api/reports/coach-analysis": {
+            "get": {
+                "tags": [
+                    "Reports"
+                ],
+                "summary": "Eğitmenlerin öğrenci tutma başarısını analiz eder.",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Eğitmen analiz raporu"
+                    }
+                }
+            }
+        },
+        "/api/reports/inactive-members": {
+            "get": {
+                "tags": [
+                    "Reports"
+                ],
+                "summary": "Devamsızlık yapan aktif üyeleri listeler (Complex Query).",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Üye listesi döner"
+                    }
+                }
+            }
+        }
+    }
+}

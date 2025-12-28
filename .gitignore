@@ -1,0 +1,28 @@
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+env/
+.env
+.venv
+
+# Flask
+instance/
+.webassets-cache
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
