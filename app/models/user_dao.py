@@ -10,7 +10,7 @@ def create_user(username, password, role='member'):
     query = """
     INSERT INTO users (username, password, role)
     VALUES (%s, %s, %s)
-    RETURNING id;
+    RETURNING user_id;
     """
     
     try:
@@ -30,7 +30,7 @@ def get_user_by_username(username):
     conn = get_db_connection()
     cur = conn.cursor()
     
-    query = "SELECT id, username, password, role FROM users WHERE username = %s;"
+    query = "SELECT user_id, username, password, role FROM users WHERE username = %s;"
     
     cur.execute(query, (username,))
     user = cur.fetchone() # Returns (id, username, password, role) or None

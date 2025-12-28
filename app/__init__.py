@@ -64,6 +64,7 @@ def create_app():
     from app.routes.report_routes import report_bp
     from app.routes.instructor_routes import instructor_bp
     from app.routes.class_routes import class_bp
+    from app.routes.complex_routes import complex_bp
 
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(plan_bp, url_prefix='/api/plans')
@@ -71,5 +72,6 @@ def create_app():
     app.register_blueprint(report_bp, url_prefix='/api/reports')
     app.register_blueprint(instructor_bp, url_prefix='/api/instructors')
     app.register_blueprint(class_bp, url_prefix='/api/classes')
+    app.register_blueprint(complex_bp, url_prefix='/api/complex')
 
     return app
